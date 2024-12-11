@@ -1,5 +1,5 @@
 # King-s-Plateforms
-Jeu de plateforme en 2D utilisant le moteur Unity.
+Jeu de plateforme en 2D utilisant le moteur Unity (Unity 6).
 
 Tilesheet et Personnages créés par Bush : https://opengameart.org/users/buch  https://opengameart.org/content/a-platformer-in-the-forest
 
