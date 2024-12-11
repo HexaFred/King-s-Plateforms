@@ -365,6 +365,7 @@ MonoBehaviour:
   - {fileID: 1763056134}
   - {fileID: 1945361991}
   speed: 2
+  damageOnCollison: 20
 --- !u!212 &209303934
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9429,6 +9430,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  isInvincible: 0
+  invicibilityFlashDelay: 0.15
+  invincivilityTimeAfterHit: 3
+  graphics: {fileID: 2098831989}
   healthBar: {fileID: 1612223465}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
