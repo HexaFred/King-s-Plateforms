@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isJumping;
     private bool isGrounded;
+    public bool isClimbing;
 
     public Transform groundCheck;
     public float groundCheckRadius;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 velocity = Vector3.zero;
     private float horizontalMovement;
+    private float verticalMovement;
 
     private void Update()
     {
@@ -37,22 +39,31 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.fixedDeltaTime;
+        verticalMovement = Input.GetAxis("Vertical") * moveSpeed * Time.fixedDeltaTime;
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers);
 
-        MovePlayer(horizontalMovement);
+        MovePlayer(horizontalMovement, verticalMovement);
     }
 
-    void MovePlayer(float _horizontalMovement)
+    void MovePlayer(float _horizontalMovement, float _verticalMovement)
     {
-        Vector3 targetVeloctity = new Vector2(_horizontalMovement, rb.linearVelocity.y);
-        rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVeloctity, ref velocity, .05f);
-
-        if(isJumping == true )
+        if (!isClimbing)
         {
-            rb.AddForce(new Vector2(0f, jumpForce));
-            isJumping=false;
+            Vector3 targetVeloctity = new Vector2(_horizontalMovement, rb.linearVelocity.y);
+            rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVeloctity, ref velocity, .05f);
+
+            if (isJumping)
+            {
+                rb.AddForce(new Vector2(0f, jumpForce));
+                isJumping = false;
+            }
+        } else
+        {
+            Vector3 targetVeloctity = new Vector2(rb.linearVelocity.x, _verticalMovement);
+            rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVeloctity, ref velocity, .05f);
         }
+        
     }
 
     void Flip(float _velocity)
