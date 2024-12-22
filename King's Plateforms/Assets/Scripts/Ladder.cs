@@ -4,6 +4,7 @@ public class Ladder : MonoBehaviour
 {
     private bool isInRange;
     private PlayerMovement playerMovement;
+    public BoxCollider2D collider;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class Ladder : MonoBehaviour
         if (isInRange && Input.GetKeyDown(KeyCode.E))
         {
             playerMovement.isClimbing = true;
+            collider.isTrigger = true;
         }
     }
 
@@ -31,6 +33,8 @@ public class Ladder : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isInRange = false;
+            playerMovement.isClimbing = false;
+            collider.isTrigger = false;
         }
     }
 }
