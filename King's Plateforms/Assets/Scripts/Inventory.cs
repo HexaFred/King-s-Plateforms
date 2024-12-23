@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
     {
         if (instance != null) 
         {
-            Debug.LogWarning("Il y a plus d'une instance de Inventory dans la scéne");
+            Debug.LogWarning("Il y a plus d'une instance de Inventory dans la scène");
         }
 
         instance = this;
