@@ -106,7 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 250
+  climbSpeed: 150
   jumpForce: 300
+  isClimbing: 0
   groundCheck: {fileID: 647025014658271230}
   groundCheckRadius: 0.4
   collisionLayers:
