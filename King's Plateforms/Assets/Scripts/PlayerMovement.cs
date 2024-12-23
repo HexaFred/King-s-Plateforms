@@ -4,10 +4,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
+    public float climbSpeed;
     public float jumpForce;
 
     private bool isJumping;
     private bool isGrounded;
+    [HideInInspector]
     public bool isClimbing;
 
     public Transform groundCheck;
@@ -34,12 +36,13 @@ public class PlayerMovement : MonoBehaviour
 
         float charcterVelocity = Mathf.Abs(rb.linearVelocity.x);
         animator.SetFloat("Speed", charcterVelocity);
+        animator.SetBool("isClimbing", isClimbing);
     }
 
     void FixedUpdate()
     {
         horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.fixedDeltaTime;
-        verticalMovement = Input.GetAxis("Vertical") * moveSpeed * Time.fixedDeltaTime;
+        verticalMovement = Input.GetAxis("Vertical") * climbSpeed * Time.fixedDeltaTime;
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers);
 
@@ -60,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             }
         } else
         {
-            Vector3 targetVeloctity = new Vector2(rb.linearVelocity.x, _verticalMovement);
+            Vector3 targetVeloctity = new Vector2(0, _verticalMovement);
             rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVeloctity, ref velocity, .05f);
         }
         
