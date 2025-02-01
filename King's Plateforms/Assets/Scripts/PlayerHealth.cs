@@ -86,6 +86,8 @@ public class PlayerHealth : MonoBehaviour
         // empêcher les interactions physique avec les autres éléments de la scène
         PlayerMovement.instance.rb.bodyType = RigidbodyType2D.Kinematic;
         PlayerMovement.instance.playerCollider.enabled = false;
+
+        GameOverManager.instance.OnPlayerDeath();
     }
 
     public IEnumerator InvincibilityFlash()
