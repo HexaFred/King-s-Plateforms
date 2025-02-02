@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
@@ -18,12 +19,23 @@ public class GameOverManager : MonoBehaviour
 
     public void OnPlayerDeath()
     {
+        if (CurrentSceneManager.instance.isPlayerPresentByDefault)
+        {
+            DontDestroyOnLoadScene.instance.RemoveFromDontDestroyOnLoad();
+        }
+
         GameOverUI.SetActive(true);
     }
 
     public void RetryButton()
     {
-        // Recommencer le niveau   
+        Inventory.instance.RemoveCoins(CurrentSceneManager.instance.coinsPickedUpInThisSceneCount);
+
+        // Recharge la scène
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        PlayerHealth.instance.Respawn();
+        GameOverUI.SetActive(false);
     }
 
     public void MainMenuButton()

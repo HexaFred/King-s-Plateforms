@@ -76,7 +76,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Le joueur est éliminé");
         // bloquer les mouvements du personnage
         PlayerMovement.instance.enabled = false;
 
@@ -88,6 +87,21 @@ public class PlayerHealth : MonoBehaviour
         PlayerMovement.instance.playerCollider.enabled = false;
 
         GameOverManager.instance.OnPlayerDeath();
+    }
+
+    public void Respawn()
+    {
+        // activer les mouvements du personnage
+        PlayerMovement.instance.enabled = true;
+
+        // jouer l'animation de réaparition
+        PlayerMovement.instance.animator.SetTrigger("Respawn");
+
+        // réactivation de la physique du joueur et de ses interactions
+        PlayerMovement.instance.rb.bodyType = RigidbodyType2D.Dynamic;
+        PlayerMovement.instance.playerCollider.enabled = true;
+
+        HealPlayer(maxHealth);
     }
 
     public IEnumerator InvincibilityFlash()
